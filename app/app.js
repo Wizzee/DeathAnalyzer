@@ -1,16 +1,18 @@
 var express = require('express');
 var app = express();
+var mongoose = require('mongoose');
+var config = require('./config');
+var setupController = require('./controllers/setupController');
+var apiController = require('./controllers/apiController');
 
 var port = process.env.PORT || 3000;
 
+app.use('/assets', express.static(__dirname + '/public'));
+
 app.set('view engine', 'ejs');
 
-app.get('/', function(req, res) {
-    res.render('index');
-});
-
-app.get('/:region/:id', function(req, res) {
-    res.send(`<html><head></head><body><h1>Looking at ${req.params.id}'s profile in the ${req.params.region} region</h1></body></html>`);
-});
+mongoose.connect(config.getDbConnectionString());
+setupController(app);
+apiController(app);
 
 app.listen(port);
