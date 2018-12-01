@@ -4,8 +4,13 @@ var Schema = mongoose.Schema;
 
 var summonerSchema = new Schema({
     id: String,
+    accountID: String,
+    profileIconId: Number,
+    name: String,
+    puuid: String,
+    summonerLevel: Number,
+    revisionDate: Date,
     region: String,
-    level: String,
     matchHistory: {
         match_id: String,
         champion_id: String,
